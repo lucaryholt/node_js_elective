@@ -47,6 +47,9 @@ const letters = "abc";
 const result3 = letters[2]
 console.log(result3)
 
+//Latifs metode / dot metode
+console.log(letters.charAt(2))
+
 
 
 
