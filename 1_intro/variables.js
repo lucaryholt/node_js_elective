@@ -23,3 +23,8 @@ console.log(scopedLet)
 //man kan også undlade 'let' eller 'const'
 name3 = "name"
 //den bliver (totalt) global. kan skabe mange problemer - man kan have en god grund til at gøre det
+
+//Man kan bruge anførselstegn, single quotes og back tics
+const stringTypeOne = ""
+const stringTypeTwo = ''
+const stringTypeThree = ``
