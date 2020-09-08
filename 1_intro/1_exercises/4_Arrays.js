@@ -41,7 +41,7 @@ const diet = ["tomato", "cucumber", "rocket"];
 
 // You are a programmer. In one line (one statement) insert hamburger, soda and pizza between the elements cucumber and rocket
 
-diet.splice(2, 0, "hamburger", "soda", "pizza")
+diet.splice(2, 0, "hamburger", "soda", "pizza");
 
 
 // --------------------------------------
@@ -50,7 +50,7 @@ diet.splice(2, 0, "hamburger", "soda", "pizza")
 // Remove the LAST element of the array.
 // Don't remove by index. You know in advance that it's the last in the array because you are too full already.
 
-diet.pop()
+diet.pop();
 
 
 
