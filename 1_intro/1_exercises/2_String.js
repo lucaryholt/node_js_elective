@@ -7,8 +7,8 @@ const numberTwo = "2.30";
 // add those two numbers and show the result
 // you cannot touch line 1 neither line 2
 
-const result0 = Number(numberOne) + Number(numberTwo)
-console.log(result0)
+const result0 = Number(numberOne) + Number(numberTwo);
+console.log(result0);
 
 
 // --------------------------------------
@@ -20,8 +20,8 @@ console.log(result0)
 const anotherNumberOne = "1.10";
 const anotherNumberTwo = "2.30";
 
-const result1 = (Number(anotherNumberOne) + Number(anotherNumberTwo)).toFixed(2)
-console.log(result1)
+const result1 = (Number(anotherNumberOne) + Number(anotherNumberTwo)).toFixed(2);
+console.log(result1);
 
 
 // --------------------------------------
@@ -33,8 +33,8 @@ const three = 98;
 
 // Show in the console the avg. with 5 decimals
 
-const result2 = ((one + two + three)/3).toFixed(5)
-console.log(result2)
+const result2 = ((one + two + three)/3).toFixed(5);
+console.log(result2);
 
 
 
@@ -44,8 +44,8 @@ console.log(result2)
 const letters = "abc";
 // Get me the character "c"
 
-const result3 = letters[2]
-console.log(result3)
+const result3 = letters[2];
+console.log(result3);
 
 //Latifs metode / dot metode
 console.log(letters.charAt(2))
@@ -60,8 +60,8 @@ const fact = "You are learning javascript!";
 
 // capitalize the J in Javascript
 
-const result4 = fact.replace("j", "J")
-console.log(result4)
+const result4 = fact.replace("j", "J");
+console.log(result4);
 
 
 // --------------------------------------
