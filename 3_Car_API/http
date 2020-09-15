@@ -1,0 +1,5 @@
+GET /cars
+GET /cars/1
+POST /cars/1
+PUT /cars/1
+DELETE /cars/1
