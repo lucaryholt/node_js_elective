@@ -51,7 +51,7 @@ app.get("/cars", (req, res) => {
     if(cars.length !== 0){
         return res.send(cars).status(200);
     }
-    return res.send({ error: 'No cars in collection.' }).status(404);
+    return res.status(404).send({ error: 'No cars in collection.' });
 });
 
 app.get("/cars/:id", (req, res) => {
@@ -69,9 +69,9 @@ app.post("/cars", (req, res) => {
     if(correctCarFormat(newCar)){
         newCar.id = getId();
         cars.push(newCar);
-        return res.status(200).send({ message: 'Car saved under id: ' + newCar.id });
+        return res.status(201).send({ message: 'Car saved under id: ' + newCar.id });
     }
-    return res.status(404).send({ error: 'Car did not follow correct format. Needs brand, model and hk.' });
+    return res.status(406).send({ error: 'Car did not follow correct format. Needs brand, model and hk.' });
 });
 
 app.put("/cars/:id", (req, res) => {
@@ -83,7 +83,6 @@ app.put("/cars/:id", (req, res) => {
         updateCar(updatedCar, selectedCar);
         return res.status(200).send({ message : 'Updated car with id: ' + id });
     }
-
     return res.status(404).send({ error : 'Could not find car with that id.' });
 });
 
