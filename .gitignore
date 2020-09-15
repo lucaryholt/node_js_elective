@@ -104,3 +104,5 @@ dist
 .tern-port
 /2_Our_First_API/package-lock.json
 /3_Car_API/package-lock.json
+/File_Upload_Test/package-lock.json
+/File_Upload_Test/uploads/
