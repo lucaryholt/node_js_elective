@@ -1,8 +1,16 @@
 const express = require("express");
 const app = express();
 
+//TODO array af JSON objekter - implementer
+//Metode til håndtere ID inkrementer
+
+let cars = [
+    { id: 1, name: "brom brom" },
+    { id: 2, model: "Mitsubishi"}
+];
+
 app.get("/cars", (req, res) => {
-    return res.send({ });
+    return res.send(cars);
 });
 
 app.get("/cars/:id", (req, res) => {
