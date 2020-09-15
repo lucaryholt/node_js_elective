@@ -6,14 +6,27 @@ const _ = require('lodash'); //array methods
 
 const app = express();
 
+const ip = 'localhost:8080';
+const port = 8080;
+
+//TODO keep alive time for files - delete after 24 hours maybe
+//maybe just file in folder? with timestamp in
+//method that checks once in a while on timestamps
+
 //Here we enable file upload
 app.use(fileUpload({
     createParentPath: true,
-    safeFileNames: true
+    safeFileNames: true,
+    preserveExtension: 6
 }));
 
 app.use(express.json()); //Helps to read body from request
 app.use(express.urlencoded({ extended: true }));
+
+/*app.get('/apitest', (req, res) => {
+    console.log(fs.readdirSync('./uploads'));
+    res.send('test');
+}); */
 
 app.get('/s/:id', (req, res) => {
     const id = req.params.id;
@@ -27,7 +40,7 @@ app.get('/s/:id', (req, res) => {
             for(let i = 0; i < files.length; i++){
                 resBody.push({
                     name: files[i],
-                    downloadLink: 'localhost:8080/download/' + id + '/' + files[i]
+                    downloadLink: ip + '/download/' + id + '/' + files[i]
                 });
             }
 
@@ -78,7 +91,7 @@ app.post('/upload', async(req, res) => {
             });
 
             res.status(200).send({
-                shareLink: 'localhost:8080/s/' + id,
+                shareLink: ip + '/s/' + id,
                 files: data
             });
         }
@@ -87,9 +100,9 @@ app.post('/upload', async(req, res) => {
     }
 });
 
-app.listen(8080, (error) => {
+app.listen(port, (error) => {
     if(error){
         console.log('Error starting server.');
     }
-    console.log('Server started on port: ', 8080);
+    console.log('Server started on port: ', port);
 });
