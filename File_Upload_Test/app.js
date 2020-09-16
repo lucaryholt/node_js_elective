@@ -122,7 +122,8 @@ app.post('/upload', async(req, res) => {
 
             return res.render('uploadComplete',{
                 files: fileData,
-                shareLink: ip + '/s/' + id
+                shareLink: ip + '/s/' + id,
+                ip: ip
             });
         }
     }catch (error){
