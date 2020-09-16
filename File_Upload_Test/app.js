@@ -1,7 +1,7 @@
-const express = require("express");
-const fileUpload = require("express-fileupload"); //The library that enables file upload
+const express = require('express');
+const fileUpload = require('express-fileupload'); //The library that enables file upload
 const fs = require('fs'); //file methods, used to read contents of directory
-const uuid = require("uuid"); //makes unique id, so that we get no upload conflicts
+const uuid = require('uuid'); //makes unique id, so that we get no upload conflicts
 const _ = require('lodash'); //array methods
 
 const app = express();
@@ -80,23 +80,34 @@ app.post('/upload', async(req, res) => {
         } else {
             let data = [];
 
-            _.forEach(_.keysIn(req.files.files), (key) => {
-                let file = req.files.files[key];
+            if(req.files.files.length === undefined){
+                let file = req.files.files;
 
                 file.mv(directory + file.name);
 
                 data.push({
                     name: file.name
                 });
-            });
+            } else {
+                _.forEach(_.keysIn(req.files.files), (key) => {
 
-            res.status(200).send({
+                    let file = req.files.files[key];
+
+                    file.mv(directory + file.name);
+
+                    data.push({
+                        name: file.name
+                    });
+                });
+            }
+
+            return res.status(200).send({
                 shareLink: ip + '/s/' + id,
                 files: data
             });
         }
     }catch (error){
-        res.status(500).send(error);
+        return res.status(500).send(error);
     }
 });
 
