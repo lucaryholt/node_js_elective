@@ -13,6 +13,16 @@ const port = 8080;
 //TODO keep alive time for files - delete after 24 hours maybe
 //maybe just file in folder? with timestamp in
 //method that checks once in a while on timestamps
+//https://stackoverflow.com/questions/19167297/in-node-delete-all-files-older-than-an-hour
+//https://stackoverflow.com/questions/27072866/how-to-remove-all-files-from-directory-without-removing-directory-in-node-js
+
+//TODO move uploads folder to external drive
+//possibly with runtime arg
+
+//TODO section up the code
+
+//TODO https certificate
+//https://nodejs.org/en/knowledge/HTTP/servers/how-to-create-a-HTTPS-server/
 
 //Here we enable file upload
 app.use(fileUpload({
