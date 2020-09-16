@@ -4,6 +4,7 @@ const fs = require('fs'); //file methods, used to read contents of directory
 const uuid = require('uuid'); //makes unique id, so that we get no upload conflicts
 const _ = require('lodash'); //array methods
 const ejs = require('ejs'); //thymeleaf type library
+const favicon = require('serve-favicon'); //favicon
 
 const app = express();
 
@@ -31,12 +32,14 @@ app.use(fileUpload({
     preserveExtension: 6
 }));
 
+app.use(favicon(__dirname + '/views/favicon.ico'));
+app.use(express.static('views'));
 app.use(express.json()); //Helps to read body from request
 app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 
 app.get('/', (req, res) => {
-    res.render('index', {
+    return res.render('index', {
         ip: ip
     });
 });
@@ -57,10 +60,9 @@ app.get('/s/:id', (req, res) => {
                 });
             }
 
-            //return res.status(200).send(resBody);
-
-            return res.render('downloadPage', {
-                files: resBody
+            return res.render('sharePage', {
+                files: resBody,
+                ip: ip
             });
         }
     }catch (error){
@@ -90,10 +92,10 @@ app.post('/upload', async(req, res) => {
 
     try{
         if(!req.files){
-            res.send({
-                status: false,
-                message: 'No files uploaded'
-            });
+            //return res.render('index', {
+            //    ip: ip
+            //});
+            return res.redirect('/');
         } else {
             let fileData = [];
 

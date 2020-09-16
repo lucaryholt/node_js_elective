@@ -1,39 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>hadoc.xyz</title>
-</head>
-<body>
-    <h1>File uploaded!</h1>
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>hadoc.xyz</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="assets/css/main.min.css" />
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	</head>
+	<body>
 
-    <h3>Files:</h3>
+		<!-- Header -->
+			<header id="header">
+				<h1><strong><a href="index.ejs">hadoc</a></strong>.xyz</h1>
+			</header>
 
-    <% files.forEach(function(file) { %>
-        <p> * <%= file.name %></p>
-    <% }); %>
+			<!--<a href="#menu" class="navPanelToggle"><span class="fa fa-bars"></span></a>-->
 
-    <p>
-        Share link: <a href="http://<%= shareLink %>"><%= shareLink %></a>
-        <button onclick="copyLink()">Copy link</button>
-        <input id="copyEnabler" type="text" value="http://<%= shareLink %>" hidden>
-    </p>
+			<!-- Main -->
+				<section id="main" class="wrapper">
+					<div class="container">
+						<header class="major special">
+							<h2>Upload Completed!</h2>
+							<p>Files and sharelink below</p>
 
+							<section>
+								<ul>
+									<% files.forEach(function(file) { %>
+										<li><%= file.name %></li>
+									<% }); %>
+								</ul>
+							</section>
 
-    <script>
-        //still not working
-        function copyLink(){
-            let copyText = document.getElementById("copyEnabler");
+							<p>
+									Sharelink here:
+									<a href="http://<%= shareLink %>"><%= shareLink %></a>
+							</p>
+						</header>
+					</div>
+				</section>
 
-            console.log(copyText);
-
-            copyText.select();
-            copyText.setSelectionRange(0, 99999);
-
-            document.execCommand("copy");
-
-            alert('Copied!');
-        }
-    </script>
-</body>
+	</body>
 </html>
