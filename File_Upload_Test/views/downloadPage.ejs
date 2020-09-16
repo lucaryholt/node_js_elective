@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <h1>Download file(s)</h1>
+
+    <% files.forEach(function(file) { %>
+        <p> * <%= file.name %></p>
+        <p>
+            ** <a href="<%= file.downloadLink %>" target="_blank"><%= file.downloadLink %></a>
+        </p>
+    <% }); %>
+
+</body>
+</html>

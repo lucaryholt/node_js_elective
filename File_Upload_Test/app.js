@@ -3,6 +3,7 @@ const fileUpload = require('express-fileupload'); //The library that enables fil
 const fs = require('fs'); //file methods, used to read contents of directory
 const uuid = require('uuid'); //makes unique id, so that we get no upload conflicts
 const _ = require('lodash'); //array methods
+const ejs = require('ejs'); //thymeleaf type library
 
 const app = express();
 
@@ -22,11 +23,13 @@ app.use(fileUpload({
 
 app.use(express.json()); //Helps to read body from request
 app.use(express.urlencoded({ extended: true }));
+app.set('view engine', 'ejs');
 
-/*app.get('/apitest', (req, res) => {
-    console.log(fs.readdirSync('./uploads'));
-    res.send('test');
-}); */
+app.get('/', (req, res) => {
+    res.render('index', {
+        ip: ip
+    });
+});
 
 app.get('/s/:id', (req, res) => {
     const id = req.params.id;
@@ -44,7 +47,11 @@ app.get('/s/:id', (req, res) => {
                 });
             }
 
-            return res.status(200).send(resBody);
+            //return res.status(200).send(resBody);
+
+            return res.render('downloadPage', {
+                files: resBody
+            });
         }
     }catch (error){
         console.log(error);
@@ -78,14 +85,14 @@ app.post('/upload', async(req, res) => {
                 message: 'No files uploaded'
             });
         } else {
-            let data = [];
+            let fileData = [];
 
             if(req.files.files.length === undefined){
                 let file = req.files.files;
 
                 file.mv(directory + file.name);
 
-                data.push({
+                fileData.push({
                     name: file.name
                 });
             } else {
@@ -95,15 +102,15 @@ app.post('/upload', async(req, res) => {
 
                     file.mv(directory + file.name);
 
-                    data.push({
+                    fileData.push({
                         name: file.name
                     });
                 });
             }
 
-            return res.status(200).send({
-                shareLink: ip + '/s/' + id,
-                files: data
+            return res.render('uploadComplete',{
+                files: fileData,
+                shareLink: ip + '/s/' + id
             });
         }
     }catch (error){

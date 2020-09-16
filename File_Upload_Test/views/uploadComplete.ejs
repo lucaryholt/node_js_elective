@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>hadoc.xyz</title>
+</head>
+<body>
+    <h1>File uploaded!</h1>
+
+    <h3>Files:</h3>
+
+    <% files.forEach(function(file) { %>
+        <p> * <%= file.name %></p>
+    <% }); %>
+
+    <p>
+        Share link: <a href="http://<%= shareLink %>"><%= shareLink %></a>
+        <button onclick="copyLink()">Copy link</button>
+        <input id="copyEnabler" type="text" value="http://<%= shareLink %>" hidden>
+    </p>
+
+
+    <script>
+        function copyLink(){
+            let copyText = document.getElementById("copyEnabler");
+
+            console.log(copyText);
+
+            copyText.select();
+            copyText.setSelectionRange(0, 99999);
+
+            document.execCommand("copy");
+
+            alert('Copied!');
+        }
+    </script>
+</body>
+</html>
