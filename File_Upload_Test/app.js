@@ -3,6 +3,7 @@ const fileUpload = require('express-fileupload'); //The library that enables fil
 const uuid = require('uuid'); //makes unique id, so that we get no upload conflicts
 const ejs = require('ejs'); //thymeleaf type library
 const favicon = require('serve-favicon'); //favicon
+const sleep = require('sleep');
 
 const fH = require('./fileHandler');
 const aH = require('./argvHandler');
@@ -47,6 +48,10 @@ app.get('/s/:id', (req, res) => {
             const files = fH.readDirectory(uploadDir + id);
             const timeoutDate = new Date(tH.getTimeout(id, timeout));
             const timeoutText = timeoutDate.getHours() + ':' + timeoutDate.getMinutes();
+
+            if (!fH.fileExists(uploadDir + id + '/hadoc-files.zip')) {
+                fH.makeZip(files, uploadDir, id);
+            }
 
             return res.render('sharePage', {
                 files: fH.getFileList(files, ip, id),
