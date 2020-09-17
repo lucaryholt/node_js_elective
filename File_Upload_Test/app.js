@@ -17,6 +17,10 @@ const uploadDir = argv.uploadDir;
 
 tH.checkTimeout(uploadDir);
 
+//TODO ability to download all files as zip on download page
+
+//TODO show when download runs out on uploadCompleted/sharePage
+
 //Here we enable file upload
 app.use(fileUpload({
     createParentPath: true,

@@ -16,6 +16,6 @@ module.exports = {
             }
         }
 
-        setInterval(checker, 5000);
+        setInterval(checker, 30000);
     }
 }
