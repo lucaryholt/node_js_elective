@@ -3,7 +3,6 @@ const fileUpload = require('express-fileupload'); //The library that enables fil
 const uuid = require('uuid'); //makes unique id, so that we get no upload conflicts
 const ejs = require('ejs'); //thymeleaf type library
 const favicon = require('serve-favicon'); //favicon
-const sleep = require('sleep');
 
 const fH = require('./fileHandler');
 const aH = require('./argvHandler');
@@ -20,6 +19,7 @@ const timeout = 3600000;
 tH.checkTimeout(uploadDir, timeout, tH.checkTimeout);
 
 //TODO ability to download all files as zip on download page
+//TODO max size for download
 
 //Here we enable file upload
 app.use(fileUpload({
