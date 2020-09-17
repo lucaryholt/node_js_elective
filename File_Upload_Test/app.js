@@ -14,12 +14,11 @@ const argv = aH.processArgv(process.argv);
 const ip = argv.ip;
 const port = argv.port;
 const uploadDir = argv.uploadDir;
+const timeout = 3600000;
 
-tH.checkTimeout(uploadDir);
+tH.checkTimeout(uploadDir, timeout, tH.checkTimeout);
 
 //TODO ability to download all files as zip on download page
-
-//TODO show when download runs out on uploadCompleted/sharePage
 
 //Here we enable file upload
 app.use(fileUpload({
@@ -46,10 +45,13 @@ app.get('/s/:id', (req, res) => {
     try{
         if(id != null){
             const files = fH.readDirectory(uploadDir + id);
+            const timeoutDate = new Date(tH.getTimeout(id, timeout));
+            const timeoutText = timeoutDate.getHours() + ':' + timeoutDate.getMinutes();
 
             return res.render('sharePage', {
                 files: fH.getFileList(files, ip, id),
-                ip: ip
+                ip,
+                timeoutText
             });
         }
     }catch (error){
@@ -79,6 +81,8 @@ app.get('/download/:id/:name', (req, res) => {
 
 app.post('/upload', async(req, res) => {
     const timeStamp = new Date().getTime();
+    const timeoutDate = new Date(timeStamp + timeout);
+    const timeoutText = timeoutDate.getHours() + ':' + timeoutDate.getMinutes();
     const id = uuid.v4() + timeStamp;
     const directory = uploadDir + id +  '/';
 
@@ -90,12 +94,11 @@ app.post('/upload', async(req, res) => {
                 file.mv(path);
             });
 
-            //fH.timeStamp(directory);
-
             return res.render('uploadComplete',{
                 files: fileData,
                 shareLink: ip + '/s/' + id,
-                ip: ip
+                ip,
+                timeoutText
             });
         }
     }catch (error){
