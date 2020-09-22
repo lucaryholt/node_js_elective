@@ -14,24 +14,8 @@ let cars = [
 ];
 
 // Support functions
-
-function getId(){
-    currentId++;
-    return currentId;
-}
-
 function getCar(id){
-    for(let i = 0; i < cars.length; i++){
-        if(cars[i].id === id){
-            return cars[i];
-        }
-    }
-    return null;
-}
-
-function addCar(car){
-    car.id = getId();
-    cars.push(car);
+    return cars.find(car => car.id === id);
 }
 
 function updateCar(updatedCar, car){
@@ -52,6 +36,19 @@ function correctCarFormat(car){
 
 // HTTP Requests
 
+app.get('/', (req, res) => {
+    return res.send({
+        data : {
+            server : 'Express',
+            jsFramework : 'Node.JS',
+            endPoints : {
+                path : '/cars',
+                method : 'GET'
+            }
+        }
+    });
+});
+
 app.get("/cars", (req, res) => {
     if(cars.length !== 0){
         return res.status(200).send(cars);
@@ -60,7 +57,7 @@ app.get("/cars", (req, res) => {
 });
 
 app.get("/cars/:id", (req, res) => {
-    const id = Number(req.params.id)
+    const id = Number(req.params.id);
     const car = getCar(id);
     if(car != null){
         return res.status(200).send(car);
@@ -72,40 +69,41 @@ app.post("/cars", (req, res) => {
     let newCar = req.body;
 
     if(correctCarFormat(newCar)){
-        addCar(newCar);
+        currentId++;
+        newCar.id = currentId;
+        cars.push(newCar);
         return res.status(201).send({ message: 'Car saved under id: ' + newCar.id });
     }
     return res.status(406).send({ error: 'Car did not follow correct format. Needs brand, model and hk.' });
 });
 
-app.put("/cars/:id", (req, res) => {
+app.patch("/cars/:id", (req, res) => {
     const id = Number(req.params.id);
-    let selectedCar = getCar(id);
-    const updatedCar = req.body;
 
-    if(selectedCar !== null){
-        updateCar(updatedCar, selectedCar);
-        return res.status(200).send({ message : 'Updated car with id: ' + id });
-    }
-    return res.status(404).send({ error : 'Could not find car with that id.' });
+    cars = cars.map(car => {
+        if(car.id === id){
+            return { ...car, ...req.body, id: car.id };
+        }
+        return car;
+    });
+
+    return res.send({ data: cars });
 });
 
 app.delete("/cars/:id", (req, res) => {
     const id = Number(req.params.id);
-    let selectedCar = getCar(id);
+    const filteredContent = cars.filter(car => car.id !== id);
 
-    if(selectedCar !== null){
-        cars.splice(cars.indexOf(selectedCar), 1);
-        return res.status(200).send({ message: 'Car deleted.', deletedCar: selectedCar });
-    }
-    return res.status(404).send({ error: 'Could not find car with id: ' + id });
+    return res.status(200).send({ message: 'Car deleted.', remainingCars: filteredContent });
 });
 
 // Listener
+//const port = process.env.PORT || 80;
+const port = process.env.PORT ? process.env.PORT : 80;
 
-app.listen(8080, (error) => {
+app.listen(port, (error) => {
    if(error){
        console.log('Error starting server.');
    }
-   console.log('Server started on: ', 8080);
+   console.log('Server started on:', Number(port));
 });
