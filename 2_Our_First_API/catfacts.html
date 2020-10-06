@@ -4,37 +4,59 @@
     <meta charset="UTF-8">
     <title>CAAAAT FAAAAACTS</title>
 
-    <style>
-        table, th, td{
-            border-style: solid;
-        }
-    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
+    <div class="container">
+        <h1>CAT FACTS</h1>
 
-    <h1>CAT FACTS</h1>
+        <table class="table table-striped table-hover table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Fact</th>
+                </tr>
+            </thead>
+            <tbody id="factTableBody" >
 
-    <table id="factTable">
-        <tr>
-            <th>#</th>
-            <th>Fact</th>
-        </tr>
-    </table>
+            </tbody>
+        </table>
+
+        <ul id="pagination" class="pagination">
+
+        </ul>
+    </div>
+
+
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
-        console.log($);
+        let facts = [];
+        const factsPerPage = 10;
 
         $.get("https://cat-fact.herokuapp.com/facts", (response) => {
-            response.all.map(fact => {
-                console.log(fact);
-                appendFact(fact);
-            });
+            const numberOfPages = Math.round(response.all.length / factsPerPage);
+            const pagination = $('#pagination');
+
+            for(let i = 0; i < numberOfPages; i++){
+                pagination.append('<li class="page-item"><a class="page-link" onclick="showPage(' + (i + 1) + ')">' + (i + 1) + '</a></li>');
+            }
+
+            facts = response.all;
+
+            showPage(1);
         });
 
-        function appendFact(fact){
-            const factHtml = '<tr><td>' + fact._id + '</td><td>' + fact.text + '</td></tr>';
-            $('#factTable').append(factHtml);
+        function showPage(pageNumber){
+            const factTableBody = $('#factTableBody');
+            factTableBody.html('');
+
+            const start = ((pageNumber - 1) * factsPerPage);
+            const end = (((pageNumber - 1) * factsPerPage) + factsPerPage) + 1;
+
+            facts.slice(start, end).map(fact => {
+                factTableBody.append('<tr><td>' + fact.text + '</td></tr>');
+            });
         }
     </script>
 
