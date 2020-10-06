@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CAAAAT FAAAAACTS</title>
+
+    <style>
+        table, th, td{
+            border-style: solid;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>CAT FACTS</h1>
+
+    <table id="factTable">
+        <tr>
+            <th>#</th>
+            <th>Fact</th>
+        </tr>
+    </table>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        console.log($);
+
+        $.get("https://cat-fact.herokuapp.com/facts", (response) => {
+            response.all.map(fact => {
+                console.log(fact);
+                appendFact(fact);
+            });
+        });
+
+        function appendFact(fact){
+            const factHtml = '<tr><td>' + fact._id + '</td><td>' + fact.text + '</td></tr>';
+            $('#factTable').append(factHtml);
+        }
+    </script>
+
+</body>
+</html>

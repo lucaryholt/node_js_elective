@@ -1,0 +1,21 @@
+{
+  "name": "kea-briefcase",
+  "version": "0.0.1",
+  "description": "File Sharing Site",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "file",
+    "files",
+    "fileupload",
+    "upload"
+  ],
+  "author": "Luca Ryholt",
+  "license": "MIT"
+}

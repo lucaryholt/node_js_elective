@@ -1,3 +1,4 @@
+const fetch = require('node-fetch');
 const express = require("express");
 const app = express();
 
@@ -14,6 +15,26 @@ app.get("/", ((req, res) => {
 app.get("/me", ((req, res) => {
     return res.send({ name : "Luca", age : 25, legs : 2 });
 }));
+
+app.get('/proxy', (req, res) => {
+    fetch('https://www.google.com')
+        .then(result => result.textConverted())
+        .then(text => {
+            return res.send(text);
+        });
+});
+
+app.get('/ipinfo', (req, res) => {
+    fetch('https://ipinfo.io?token=65a844d5bc532e')
+        .then(result => result.json())
+        .then(json => {
+            return res.send(json);
+        });
+});
+
+app.get('/cats', (req, res) => {
+    res.sendFile(__dirname + '/catfacts.html');
+});
 
 const months =
     ["January",
