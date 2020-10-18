@@ -36,10 +36,9 @@
 
         $.get("https://cat-fact.herokuapp.com/facts", (response) => {
             const numberOfPages = Math.round(response.all.length / factsPerPage);
-            const pagination = $('#pagination');
 
             for(let i = 0; i < numberOfPages; i++){
-                pagination.append('<li class="page-item"><a class="page-link" onclick="showPage(' + (i + 1) + ')">' + (i + 1) + '</a></li>');
+                $('#pagination').append('<li class="page-item"><a class="page-link" onclick="showPage(' + (i + 1) + ')">' + (i + 1) + '</a></li>');
             }
 
             facts = response.all;
@@ -52,7 +51,7 @@
             factTableBody.html('');
 
             const start = ((pageNumber - 1) * factsPerPage);
-            const end = (((pageNumber - 1) * factsPerPage) + factsPerPage) + 1;
+            const end = (((pageNumber - 1) * factsPerPage) + factsPerPage);
 
             facts.slice(start, end).map(fact => {
                 factTableBody.append('<tr><td>' + fact.text + '</td></tr>');
