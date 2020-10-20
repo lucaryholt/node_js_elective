@@ -1,1 +1,0 @@
-$('#footer-copyright').html('Copyright © ' + new Date().getFullYear());
