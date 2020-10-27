@@ -1,15 +1,15 @@
 const router = require('express').Router();
 const contentHandler = require('../contentHandler.js');
 
-router.post('/form', (req, res) => {
+router.get('/uploads/:id', (req, res) => {
+    const file = contentHandler.getData(req.params.id);
+    return res.send(file);
+});
+
+router.post('/uploads', (req, res) => {
     const id = contentHandler.appendData(req.body.message);
 
-    console.log(contentHandler.getData());
-    return res.send({
-        data: {
-            id
-        }
-    });
+    return res.send({ id });
 });
 
 module.exports = router;

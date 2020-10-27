@@ -1,9 +1,9 @@
-const uuid = require('uuid');
+const crypto = require('crypto');
 
 let uploadedContent = [];
 
 function appendData(data) {
-    const id = uuid.v4();
+    const id = crypto.randomBytes(18).toString("hex");
 
     uploadedContent.push({
         id,
@@ -13,8 +13,8 @@ function appendData(data) {
     return id;
 }
 
-function getData() {
-    return uploadedContent;
+function getData(id) {
+    return uploadedContent.find(upload => upload.id === id);
 }
 
 module.exports = {
