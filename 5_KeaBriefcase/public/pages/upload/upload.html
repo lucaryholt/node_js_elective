@@ -1,11 +1,11 @@
 <div class="container">
-    <form id="form" class="input-group-vertical" onsubmit="validateForm(); return false;">
+    <form action="/uploads" method="post" id="myForm" name="myForm" class="input-group-vertical" enctype="multipart/form-data">
         <div class="row">
             <div class="col">
                 <div class="input-header">Message to receiver:</div>
                 <textarea name="message" class="form-control" id="message-input" cols="30" rows="10"></textarea>
                 <div class="input-header">Files:</div>
-                <input id="file-input" type="file">
+                <input id="file-input" type="file" name="file">
             </div>
             <div class="col">
                 <button id="done-button" type="submit" class="btn btn-primary btn-block">Done</button>
