@@ -10,6 +10,8 @@ app.use(require('./routes/html.js'));
 
 app.use(require('./routes/upload.js'));
 
+app.use(require('./routes/download.js'));
+
 app.listen(8070, (error) => {
    if (error) {
        console.log('Error starting server.');
