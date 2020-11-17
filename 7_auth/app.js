@@ -13,6 +13,21 @@ app.use(session({
     cookie: { secure: false }
 }));
 
+const rateLimiter = require('express-rate-limit');
+
+const authLimiter = rateLimiter({
+    windowMs: 10 * 60 * 1000,
+    max: 6
+});
+
+const routeLimiter = rateLimiter({
+    windowMs: 20 * 60 * 1000,
+    max: 10
+});
+
+app.use(routeLimiter);
+app.use('/auth', authLimiter);
+
 app.use(require('./routes/auth.js'));
 
 app.use(require('./routes/authPages.js'));

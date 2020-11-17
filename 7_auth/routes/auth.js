@@ -1,15 +1,17 @@
-const express = require('express');
-const router = express.Router();
+const router = require('express').Router();
 
-router.get('/logout', (req, res) => {
+const bcrypt = require('bcrypt');
+const saltRounds = 12;
+
+router.get('/auth/logout', (req, res) => {
     return res.status(501).send();
 });
 
-router.post('/login', (req, res) => {
+router.post('/auth/login', (req, res) => {
     return res.status(501).send();
 });
 
-router.post('/singup', (req, res) => {
+router.post('/auth/singup', (req, res) => {
     return res.status(501).send();
 });
 
