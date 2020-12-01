@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat</title>
+</head>
+<body>
+
+<form onsubmit="enterChatRoom(); return false;">
+    <input type="text" placeholder="Username" id="username-input">
+    <input type="text" placeholder="Chatroom" id="chatroom-input">
+    <button type="submit">Enter</button>
+</form>
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<form onsubmit="sendMessage(); return false;">
+    <input type="text" placeholder="Message" id="message-input">
+    <button type="submit">Send</button>
+</form>
+
+<div id="message-hook"></div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/index.js"></script>
+
+</body>
+</html>
